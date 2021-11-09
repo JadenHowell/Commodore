@@ -1,5 +1,7 @@
 import 'package:commodore/presenter/create_room_presenter.dart';
 import 'package:commodore/presenter/join_room_presenter.dart';
+import 'package:commodore/services/response/create_room_response.dart';
+import 'package:commodore/services/response/join_room_response.dart';
 import 'package:commodore/themes/color_values.dart';
 import 'package:commodore/themes/theme_data.dart';
 import 'package:flutter/material.dart';
@@ -137,7 +139,7 @@ class _MyHomePageState extends State<MyHomePage> implements JoinRoomView, Create
       margin: const EdgeInsets.all(5),
       child: ElevatedButton(
         child: const Text("join room"),
-        onPressed: () => _joinRoomPresenter?.onJoinRoomClicked(),
+        onPressed: () => _joinRoomPresenter?.onJoinRoomClicked("hi", "hi"),
       ),
     );
   }
@@ -149,18 +151,40 @@ class _MyHomePageState extends State<MyHomePage> implements JoinRoomView, Create
       margin: const EdgeInsets.all(5),
       child: ElevatedButton(
         child: const Text("create room"),
-        onPressed: () => _createRoomPresenter?.onCreateRoomClicked(),
+        onPressed: () => _createRoomPresenter?.onCreateRoomClicked("hi"),
       ),
     );
   }
 
   @override
-  void roomJoined() {
-    // TODO: implement roomJoined
+  void roomJoined(JoinRoomResponse response) {
+    String text;
+    if(response.success) {
+      text = "Join success!";
+    } else {
+      text = "Join failed...";
+    }
+
+    SnackBar snackBar = SnackBar(content: Text(text));
+
+    // Find the ScaffoldMessenger in the widget tree
+    // and use it to show a SnackBar.
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
   @override
-  void roomCreated() {
-    // TODO: implement roomCreated
+  void roomCreated(CreateRoomResponse response) {
+    String text;
+    if(response.success) {
+      text = "Create success!";
+    } else {
+      text = "Create failed...";
+    }
+
+    SnackBar snackBar = SnackBar(content: Text(text));
+
+    // Find the ScaffoldMessenger in the widget tree
+    // and use it to show a SnackBar.
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 }
