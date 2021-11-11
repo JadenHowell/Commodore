@@ -4,6 +4,7 @@ import 'package:commodore/services/response/create_room_response.dart';
 import 'package:commodore/services/response/join_room_response.dart';
 import 'package:commodore/themes/color_values.dart';
 import 'package:commodore/themes/theme_data.dart';
+import 'package:commodore/view/pages/game_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -158,33 +159,27 @@ class _MyHomePageState extends State<MyHomePage> implements JoinRoomView, Create
 
   @override
   void roomJoined(JoinRoomResponse response) {
-    String text;
     if(response.success) {
-      text = "Join success!";
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => GamePage(title: widget.title)),
+      );
     } else {
-      text = "Join failed...";
+      SnackBar snackBar = const SnackBar(content: Text('Join failed'));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
-
-    SnackBar snackBar = SnackBar(content: Text(text));
-
-    // Find the ScaffoldMessenger in the widget tree
-    // and use it to show a SnackBar.
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 
   @override
   void roomCreated(CreateRoomResponse response) {
-    String text;
     if(response.success) {
-      text = "Create success!";
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => GamePage(title: widget.title)),
+      );
     } else {
-      text = "Create failed...";
+      SnackBar snackBar = const SnackBar(content: Text('Create failed'));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
-
-    SnackBar snackBar = SnackBar(content: Text(text));
-
-    // Find the ScaffoldMessenger in the widget tree
-    // and use it to show a SnackBar.
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
   }
 }
