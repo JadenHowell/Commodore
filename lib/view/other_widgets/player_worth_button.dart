@@ -2,8 +2,8 @@ import 'package:commodore/model/user.dart';
 import 'package:commodore/view/pages/worth_page.dart';
 import 'package:flutter/material.dart';
 
-class PlayerButton extends StatelessWidget {
-  PlayerButton({Key? key, required this.user}) : super(key: key);
+class PlayerWorthButton extends StatelessWidget {
+  PlayerWorthButton({Key? key, required this.user}) : super(key: key);
 
   final User user;
   late BuildContext appContext;
@@ -21,7 +21,7 @@ class PlayerButton extends StatelessWidget {
         height: 75,
         child: Center(
           child: Text(
-            user.name + ": \$" + user.money.toString(),
+            user.name + ": \$" + user.worthToString(),
             style: const TextStyle(
               fontSize: 28,
             ),
