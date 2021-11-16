@@ -24,11 +24,65 @@ class _WorthPageState extends State<WorthPage> {
         backgroundColor: widget.user.color,
       ),
       body: Column(
-        children : <Widget>[
-          for(int i = 0; i < _cache.allUsers.length; i ++)
-            StockSquare(user: _cache.allUsers[i], amount: widget.user.stocks[_cache.allUsers[i]]!)
-        ]
+        children: <Widget>[
+
+          const SizedBox(height: 25),
+
+          //Each StockSquare plus it's value is in a row
+          for(int i = 0; i< _cache.allUsers.length; i ++)
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  StockSquare(
+                    user: _cache.allUsers[i],
+                    amount: widget.user.stocks[_cache.allUsers[i]]!,
+                  ),
+                  SizedBox(
+                    height: 60,
+                    width: 60,
+                    child: Center(
+                      child: Text(
+                        "\$" + _cache.allUsers[i].stockWorth.toString(),
+                        style: const TextStyle(
+                          fontSize: 28,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+          const SizedBox(height:25),
+
+          Text(
+              "CASH: \$" + widget.user.cashToString(),
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 35,
+              )
+          ),
+
+          const SizedBox(height:25),
+
+          Text(
+              "NET WORTH: \$" + widget.user.worthToString(),
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 35,
+              )
+          ),
+
+
+        ],
       ),
     );
   }
 }
+
+/*
+
+*/
