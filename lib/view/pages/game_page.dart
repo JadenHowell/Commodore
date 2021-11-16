@@ -71,7 +71,7 @@ class _GamePageState extends State<GamePage> {
             "STOCKS",
             style: TextStyle(
               fontWeight: FontWeight.bold,
-              fontSize: 20,
+              fontSize: 30,
             ),
           ),
         ),
@@ -91,7 +91,7 @@ class _GamePageState extends State<GamePage> {
             "MONEY",
             style: TextStyle(
               fontWeight: FontWeight.bold,
-              fontSize: 20,
+              fontSize: 30,
             ),
           ),
         ),
