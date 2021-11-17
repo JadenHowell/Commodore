@@ -29,6 +29,8 @@ class DataCache{
   }
 
 
+  late Map<User, int> _stockMarket;
+  Map<User, int> get stockMarket => _stockMarket;
 
   final List<User> _allUsers = [
     User(name: 'Jaden', color: Colors.blue, stockWorth: 10, cash: 100000),
@@ -73,7 +75,35 @@ class DataCache{
     };
     _allUsers[3].setStocks(player3Stocks);
 
+    _stockMarket = {
+      _allUsers[0] : 0,
+      _allUsers[1] : 0,
+      _allUsers[2] : 0,
+      _allUsers[3] : 0
+    };
+
     player = _allUsers[0];
+  }
+
+
+  void sellStock(User userStockSold){
+    if(player.stocks[userStockSold] == 0){
+      return; //Can't sell what you don't own
+    }
+    player.stocks[userStockSold] = player.stocks[userStockSold]! - 1;
+    _stockMarket[userStockSold] = _stockMarket[userStockSold]! + 1;
+    player.addCash(10000 * userStockSold.stockWorth);
+    notifyObservers();
+  }
+
+  void buyStock(User userStockBought){
+    if(_stockMarket[userStockBought] == 0 || player.cash < (10000 * userStockBought.stockWorth)){
+      return; //Can't buy whats not in the market and if you don't have money for it
+    }
+    player.stocks[userStockBought] = player.stocks[userStockBought]! + 1;
+    _stockMarket[userStockBought] = _stockMarket[userStockBought]! - 1;
+    player.subtractCash(10000 * userStockBought.stockWorth);
+    notifyObservers();
   }
 
   final List<SocketObserver> _observers = [];

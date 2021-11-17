@@ -5,14 +5,17 @@ import '../data_cache.dart';
 class User{
   final String name;
   final Color color;
-  int stockWorth;
+  late int _stockWorth;
   late int _cash;
   int get cash => _cash;
   late Map<User, int> stocks = {};
 
-  User({required this.name, required this.color, this.stockWorth = 5, cash = 100000}) {
+  User({required this.name, required this.color, stockWorth = 5, cash = 100000}) {
     _cash = cash;
+    _stockWorth = stockWorth;
   }
+
+  int get stockWorth => _stockWorth;
 
   void setStocks(Map<User, int> newStocks){
     stocks = newStocks;
@@ -54,4 +57,27 @@ class User{
     _cash -= subtractedAmount;
     DataCache.getInstance().notifyObservers();
   }
+
+  void increaseStockWorth(){
+    if(_stockWorth >= 80){
+      return; //can't increase stock worth past 80
+    } else if (_stockWorth <= 4){
+      _stockWorth += 1;
+    } else {
+      _stockWorth += 5;
+    }
+    DataCache.getInstance().notifyObservers();
+  }
+
+  void decreaseStockWorth(){
+    if(_stockWorth <= 0){
+      return; //can't decrease below 0
+    } if(_stockWorth <= 5){
+      _stockWorth -= 1;
+    } else {
+      _stockWorth -= 5;
+    }
+    DataCache.getInstance().notifyObservers();
+  }
+
 }

@@ -18,6 +18,7 @@ class PlusButton extends StatelessWidget {
           style: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,
+            fontSize: 30,
           ),
         ),
         style: ButtonStyle(
@@ -29,6 +30,7 @@ class PlusButton extends StatelessWidget {
               return ColorValues.addButtonColor;
             },
           ),
+          padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.zero),
         ),
       ),
     );
