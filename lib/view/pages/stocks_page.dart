@@ -122,7 +122,7 @@ class _StocksPageState extends CommodoreState<StocksPage> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.fromLTRB(10, 0, 30, 0),
-                    child: PlusButton(callback: () => {}),
+                    child: PlusButton(callback: () => {_cache.buyStock(user)}),
                   ),
                   StockSquare(
                     user: user,
@@ -143,7 +143,7 @@ class _StocksPageState extends CommodoreState<StocksPage> {
                   ),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                    child: MinusButton(callback: () => {}),
+                    child: MinusButton(callback: () => {_cache.sellStock(user)}),
                   ),
                 ],
               ),

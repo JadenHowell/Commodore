@@ -44,8 +44,8 @@ class DataCache{
 
   void _initUsers() {
     Map<User, int> player0Stocks = {
-      _allUsers[0] : 8,
-      _allUsers[1] : 1,
+      _allUsers[0] : 6,
+      _allUsers[1] : 2,
       _allUsers[2] : 0,
       _allUsers[3] : 1,
     };
@@ -53,7 +53,7 @@ class DataCache{
 
     Map<User, int> player1Stocks = {
       _allUsers[0] : 1,
-      _allUsers[1] : 9,
+      _allUsers[1] : 7,
       _allUsers[2] : 0,
       _allUsers[3] : 0,
     };
@@ -62,24 +62,24 @@ class DataCache{
     Map<User, int> player2Stocks = {
       _allUsers[0] : 1,
       _allUsers[1] : 0,
-      _allUsers[2] : 6,
-      _allUsers[3] : 4,
+      _allUsers[2] : 5,
+      _allUsers[3] : 3,
     };
     _allUsers[2].setStocks(player2Stocks);
 
     Map<User, int> player3Stocks = {
       _allUsers[0] : 0,
       _allUsers[1] : 0,
-      _allUsers[2] : 4,
-      _allUsers[3] : 5,
+      _allUsers[2] : 3,
+      _allUsers[3] : 3,
     };
     _allUsers[3].setStocks(player3Stocks);
 
     _stockMarket = {
-      _allUsers[0] : 0,
-      _allUsers[1] : 0,
-      _allUsers[2] : 0,
-      _allUsers[3] : 0
+      _allUsers[0] : 2,
+      _allUsers[1] : 1,
+      _allUsers[2] : 2,
+      _allUsers[3] : 3
     };
 
     player = _allUsers[0];
