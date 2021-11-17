@@ -2,11 +2,14 @@ import 'package:commodore/model/user.dart';
 import 'package:commodore/view/pages/worth_page.dart';
 import 'package:flutter/material.dart';
 
+import '../../data_cache.dart';
+
 class PlayerWorthButton extends StatelessWidget {
   PlayerWorthButton({Key? key, required this.user}) : super(key: key);
 
   final User user;
   late BuildContext appContext;
+  DataCache _cache = DataCache.getInstance();
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +37,7 @@ class PlayerWorthButton extends StatelessWidget {
   void navigateToUserWorthPage() {
     Navigator.push(
       appContext,
-      MaterialPageRoute(builder: (context) => WorthPage(user: user)),
+      MaterialPageRoute(builder: (context) => WorthPage(userIndex: _cache.allUsers.indexOf(user),)),
     );
   }
 }

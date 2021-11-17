@@ -1,4 +1,5 @@
 import 'package:commodore/data_cache.dart';
+import 'package:commodore/model/user.dart';
 import 'package:commodore/themes/color_values.dart';
 import 'package:commodore/view/other_widgets/minus_button.dart';
 import 'package:commodore/view/other_widgets/plus_button.dart';
@@ -11,10 +12,13 @@ class MoneyPage extends StatefulWidget {
   _MoneyPageState createState() => _MoneyPageState();
 }
 
-class _MoneyPageState extends State<MoneyPage> {
+class _MoneyPageState extends CommodoreState<MoneyPage> {
+
+  final DataCache _cache = DataCache.getInstance();
+  late User _player;
+
   @override
   Widget build(BuildContext context) {
-    DataCache _cache = DataCache.getInstance();
     return Scaffold(
       appBar: AppBar(
         title: const Text("MONEY"),
@@ -26,7 +30,7 @@ class _MoneyPageState extends State<MoneyPage> {
 
           Center(
             child: Text(
-                "CASH: \$" + _cache.player.cashToString(),
+                "CASH: \$" + _player.cashToString(),
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 35,
@@ -44,11 +48,11 @@ class _MoneyPageState extends State<MoneyPage> {
                 _displayBox("\$10K"),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                  child: PlusButton(callback: () => {}),
+                  child: PlusButton(callback: () => {_player.addCash(10000)}),
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                  child: MinusButton(callback: () => {}),
+                  child: MinusButton(callback: () => {_player.subtractCash(10000)}),
                 )
               ],
             ),
@@ -62,11 +66,11 @@ class _MoneyPageState extends State<MoneyPage> {
                 _displayBox("\$50K"),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                  child: PlusButton(callback: () => {}),
+                  child: PlusButton(callback: () => {_player.addCash(50000)}),
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                  child: MinusButton(callback: () => {}),
+                  child: MinusButton(callback: () => {_player.subtractCash(50000)}),
                 )
               ],
             ),
@@ -80,11 +84,11 @@ class _MoneyPageState extends State<MoneyPage> {
                 _displayBox("\$100K"),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                  child: PlusButton(callback: () => {}),
+                  child: PlusButton(callback: () => {_player.addCash(100000)}),
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                  child: MinusButton(callback: () => {}),
+                  child: MinusButton(callback: () => {_player.subtractCash(100000)}),
                 )
               ],
             ),
@@ -120,5 +124,12 @@ class _MoneyPageState extends State<MoneyPage> {
     borderRadius: const BorderRadius.all(Radius.circular(10)),
     color: ColorValues.textEntryColor,
   );
+
+  @override
+  void notify() {
+    setState(() {
+      _player = _cache.player;
+    });
+  }
 
 }

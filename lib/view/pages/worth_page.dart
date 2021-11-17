@@ -4,24 +4,26 @@ import 'package:commodore/view/other_widgets/stock_square.dart';
 import 'package:flutter/material.dart';
 
 class WorthPage extends StatefulWidget {
-  const WorthPage({Key? key, required this.user}) : super(key: key);
+  const WorthPage({Key? key, required this.userIndex}) : super(key: key);
 
-  final User user;
+  final int userIndex;
 
   @override
   _WorthPageState createState() => _WorthPageState();
 }
 
-class _WorthPageState extends State<WorthPage> {
+class _WorthPageState extends CommodoreState<WorthPage> {
+
+  final DataCache _cache = DataCache.getInstance();
+  late List<User> _allUsers;
+
   @override
   Widget build(BuildContext context) {
-    DataCache _cache = DataCache.getInstance();
-
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.user.name),
+        title: Text(_allUsers[widget.userIndex].name),
         centerTitle: true,
-        backgroundColor: widget.user.color,
+        backgroundColor: _allUsers[widget.userIndex].color,
       ),
       body: Column(
         children: <Widget>[
@@ -29,22 +31,22 @@ class _WorthPageState extends State<WorthPage> {
           const SizedBox(height: 25),
 
           //Each StockSquare plus it's value is in a row
-          for(int i = 0; i< _cache.allUsers.length; i ++)
+          for(int i = 0; i< _allUsers.length; i ++)
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   StockSquare(
-                    user: _cache.allUsers[i],
-                    amount: widget.user.stocks[_cache.allUsers[i]]!,
+                    user: _allUsers[i],
+                    amount: _allUsers[widget.userIndex].stocks[_allUsers[i]]!,
                   ),
                   SizedBox(
                     height: 60,
                     width: 60,
                     child: Center(
                       child: Text(
-                        "\$" + _cache.allUsers[i].stockWorth.toString(),
+                        "\$" + _allUsers[i].stockWorth.toString(),
                         style: const TextStyle(
                           fontSize: 28,
                           fontWeight: FontWeight.bold,
@@ -59,7 +61,7 @@ class _WorthPageState extends State<WorthPage> {
           const SizedBox(height:25),
 
           Text(
-              "CASH: \$" + widget.user.cashToString(),
+              "CASH: \$" + _allUsers[widget.userIndex].cashToString(),
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 35,
@@ -69,7 +71,7 @@ class _WorthPageState extends State<WorthPage> {
           const SizedBox(height:25),
 
           Text(
-              "NET WORTH: \$" + widget.user.worthToString(),
+              "NET WORTH: \$" + _allUsers[widget.userIndex].worthToString(),
               style: const TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 35,
@@ -80,6 +82,13 @@ class _WorthPageState extends State<WorthPage> {
         ],
       ),
     );
+  }
+
+  @override
+  void notify() {
+    setState(() {
+      _allUsers = _cache.allUsers;
+    });
   }
 }
 

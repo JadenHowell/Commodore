@@ -16,13 +16,12 @@ class GamePage extends StatefulWidget {
   _GamePageState createState() => _GamePageState();
 }
 
-class _GamePageState extends State<GamePage> {
+class _GamePageState extends CommodoreState<GamePage> {
   final DataCache _dataCache = DataCache.getInstance();
   late List<User> allUsers;
 
   @override
   Widget build(BuildContext context) {
-    allUsers = DataCache.getInstance().allUsers;
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -111,5 +110,12 @@ class _GamePageState extends State<GamePage> {
       context,
       MaterialPageRoute(builder: (context) => const MoneyPage()),
     );
+  }
+
+  @override
+  void notify() {
+    setState(() {
+      allUsers = _dataCache.allUsers;
+    });
   }
 }
