@@ -83,7 +83,7 @@ class _StocksPageState extends CommodoreState<StocksPage> {
           ),
 
           const Text(
-              "MARKET",
+              "Owned",
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 35,
@@ -94,7 +94,7 @@ class _StocksPageState extends CommodoreState<StocksPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: const <Widget> [
               Text(
-                  "BUY",
+                  "SELL",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 26,
@@ -104,7 +104,7 @@ class _StocksPageState extends CommodoreState<StocksPage> {
               SizedBox(width: 170),
 
               Text(
-                  "SELL",
+                  "BUY",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 26,
@@ -114,7 +114,7 @@ class _StocksPageState extends CommodoreState<StocksPage> {
           ),
 
           //Each StockSquare plus it's value is in a row
-          for(User user in _market.keys)
+          for(User user in _player.stocks.keys)
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 5),
               child: Row(
@@ -122,11 +122,11 @@ class _StocksPageState extends CommodoreState<StocksPage> {
                 children: [
                   Padding(
                     padding: const EdgeInsets.fromLTRB(10, 0, 30, 0),
-                    child: PlusButton(callback: () => {_cache.buyStock(user)}),
+                    child: MinusButton(callback: () => {_cache.sellStock(user)}),
                   ),
                   StockSquare(
                     user: user,
-                    amount: _market[user]!,
+                    amount: _player.stocks[user]!,
                   ),
                   SizedBox(
                     height: 60,
@@ -143,7 +143,7 @@ class _StocksPageState extends CommodoreState<StocksPage> {
                   ),
                   Padding(
                     padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                    child: MinusButton(callback: () => {_cache.sellStock(user)}),
+                    child: PlusButton(callback: () => {_cache.buyStock(user)}),
                   ),
                 ],
               ),
@@ -165,19 +165,19 @@ class _StocksPageState extends CommodoreState<StocksPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget> [
               const Text(
-                  "OWNED:",
+                  "MARKET:",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 26,
                   )
               ),
 
-              for(User user in _player.stocks.keys)
+              for(User user in _market.keys)
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: StockSquare(
                     user: user,
-                    amount: _player.stocks[user]!,
+                    amount: _market[user]!,
                     size: 50,
                   ),
                 ),

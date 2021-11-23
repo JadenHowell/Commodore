@@ -30,6 +30,15 @@ class _WorthPageState extends CommodoreState<WorthPage> {
 
           const SizedBox(height: 25),
 
+          const Text(
+              "Stocks:",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 35,
+              )
+          ),
+
+
           //Each StockSquare plus it's value is in a row
           for(int i = 0; i< _allUsers.length; i ++)
             Padding(
@@ -37,6 +46,19 @@ class _WorthPageState extends CommodoreState<WorthPage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  SizedBox(
+                    height: 60,
+                    width: 100,
+                    child: Center(
+                      child: Text(
+                          _allUsers[i].name + ":",
+                          style: const TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 28,
+                          )
+                      ),
+                    ),
+                  ),
                   StockSquare(
                     user: _allUsers[i],
                     amount: _allUsers[widget.userIndex].stocks[_allUsers[i]]!,
