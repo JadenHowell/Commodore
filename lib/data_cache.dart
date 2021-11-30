@@ -1,4 +1,5 @@
 import 'dart:core';
+import 'dart:math';
 
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 import 'package:commodore/model/user.dart';
@@ -83,6 +84,18 @@ class DataCache{
     };
 
     player = _allUsers[0];
+  }
+
+  void randomizeColors(){
+    List<Color> possibleColor = [Colors.blue, Colors.green, Colors.red,
+      Colors.orange];
+    for (User u in _allUsers){
+      u.color = possibleColor.removeAt(Random().nextInt(possibleColor.length));
+    }
+  }
+
+  void setPlayerName(String playerName){
+    player.name = playerName;
   }
 
 

@@ -21,6 +21,7 @@ class _MoneyPageState extends CommodoreState<MoneyPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: _cache.player.color,
         title: const Text("MONEY"),
         centerTitle: true,
       ),
@@ -48,12 +49,12 @@ class _MoneyPageState extends CommodoreState<MoneyPage> {
                 _displayBox("\$10K"),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                  child: PlusButton(callback: () => {_player.addCash(10000)}),
+                  child: MinusButton(callback: () => {_player.subtractCash(10000)}),
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                  child: MinusButton(callback: () => {_player.subtractCash(10000)}),
-                )
+                  child: PlusButton(callback: () => {_player.addCash(10000)}),
+                ),
               ],
             ),
           ),
@@ -66,12 +67,12 @@ class _MoneyPageState extends CommodoreState<MoneyPage> {
                 _displayBox("\$50K"),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                  child: PlusButton(callback: () => {_player.addCash(50000)}),
+                  child: MinusButton(callback: () => {_player.subtractCash(50000)}),
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                  child: MinusButton(callback: () => {_player.subtractCash(50000)}),
-                )
+                  child: PlusButton(callback: () => {_player.addCash(50000)}),
+                ),
               ],
             ),
           ),
@@ -84,12 +85,12 @@ class _MoneyPageState extends CommodoreState<MoneyPage> {
                 _displayBox("\$100K"),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                  child: PlusButton(callback: () => {_player.addCash(100000)}),
+                  child: MinusButton(callback: () => {_player.subtractCash(100000)}),
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                  child: MinusButton(callback: () => {_player.subtractCash(100000)}),
-                )
+                  child: PlusButton(callback: () => {_player.addCash(100000)}),
+                ),
               ],
             ),
           ),

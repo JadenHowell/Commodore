@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import '../data_cache.dart';
 
 class User{
-  final String name;
-  final Color color;
+  String name;
+  Color color;
   late int _stockWorth;
   late int _cash;
   int get cash => _cash;

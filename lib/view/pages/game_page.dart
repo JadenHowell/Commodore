@@ -24,6 +24,7 @@ class _GamePageState extends CommodoreState<GamePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: _dataCache.player.color,
         title: Text(widget.title),
         centerTitle: true,
       ),

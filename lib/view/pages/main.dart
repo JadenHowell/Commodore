@@ -48,6 +48,18 @@ class _MyHomePageState extends State<MyHomePage> implements JoinRoomView, Create
   final double _buttonHeight = 50.0;
   final double _textFieldWidth = 250.0;
   final double _textFieldHeight = 75.0;
+  final TextEditingController _nameController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose(){
+    _nameController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -90,6 +102,7 @@ class _MyHomePageState extends State<MyHomePage> implements JoinRoomView, Create
         textAlign: TextAlign.center,
         style: const TextStyle(fontSize: 36),
         keyboardType: TextInputType.text,
+        controller: _nameController,
         decoration: const InputDecoration(
           border: InputBorder.none,
           hintText: 'name',
@@ -140,7 +153,7 @@ class _MyHomePageState extends State<MyHomePage> implements JoinRoomView, Create
       margin: const EdgeInsets.all(5),
       child: ElevatedButton(
         child: const Text("join room"),
-        onPressed: () => _joinRoomPresenter?.onJoinRoomClicked("hi", "hi"),
+        onPressed: () => _joinRoomPresenter?.onJoinRoomClicked(_nameController.text, "hi"),
       ),
     );
   }
@@ -165,7 +178,7 @@ class _MyHomePageState extends State<MyHomePage> implements JoinRoomView, Create
         MaterialPageRoute(builder: (context) => GamePage(title: widget.title)),
       );
     } else {
-      SnackBar snackBar = const SnackBar(content: Text('Join failed'));
+      SnackBar snackBar = const SnackBar(content: Text('Join failed (7 character name max)'));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
   }

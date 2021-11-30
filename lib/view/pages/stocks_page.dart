@@ -23,19 +23,20 @@ class _StocksPageState extends CommodoreState<StocksPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: _cache.player.color,
         title: const Text("STOCKS"),
         centerTitle: true,
       ),
       body: Column(
         children: <Widget>[
 
-          const Padding(
-            padding: EdgeInsets.fromLTRB(0, 15, 0, 0),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
             child: Text(
-              "VALUE",
-              style: TextStyle(
+              _cache.player.name + "'s Stock Value",
+              style: const TextStyle(
                 fontWeight: FontWeight.bold,
-                fontSize: 35,
+                fontSize: 24,
               ),
             ),
           ),
@@ -46,9 +47,9 @@ class _StocksPageState extends CommodoreState<StocksPage> {
               SizedBox(
                 width: 100,
                 child: ElevatedButton(
-                    onPressed: () => {_player.increaseStockWorth()},
+                    onPressed: () => {_player.decreaseStockWorth()},
                     child: const Text(
-                      "+",
+                      "-",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 30,
@@ -56,15 +57,13 @@ class _StocksPageState extends CommodoreState<StocksPage> {
                     )
                 ),
               ),
-
               const SizedBox(width: 25,),
-
               SizedBox(
                 width: 100,
                 child: ElevatedButton(
-                    onPressed: () => {_player.decreaseStockWorth()},
+                    onPressed: () => {_player.increaseStockWorth()},
                     child: const Text(
-                      "-",
+                      "+",
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 30,
@@ -121,17 +120,28 @@ class _StocksPageState extends CommodoreState<StocksPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(10, 0, 30, 0),
+                    padding: const EdgeInsets.fromLTRB(10, 16, 30, 0),
                     child: MinusButton(callback: () => {_cache.sellStock(user)}),
                   ),
-                  StockSquare(
-                    user: user,
-                    amount: _player.stocks[user]!,
+                  Column(
+                    children: [
+                      Text(user.name,
+                          style: const TextStyle(
+                            fontSize: 16,
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                          )),
+                      StockSquare(
+                      user: user,
+                      amount: _player.stocks[user]!,
+                      size: 50
+                    ),]
                   ),
                   SizedBox(
                     height: 60,
                     width: 60,
-                    child: Center(
+                    child: Padding(
+                      padding: const EdgeInsets.fromLTRB(10, 24, 0, 0),
                       child: Text(
                         "\$" + user.stockWorth.toString(),
                         style: const TextStyle(
@@ -142,7 +152,7 @@ class _StocksPageState extends CommodoreState<StocksPage> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                    padding: const EdgeInsets.fromLTRB(10, 16, 10, 0),
                     child: PlusButton(callback: () => {_cache.buyStock(user)}),
                   ),
                 ],
