@@ -1,5 +1,6 @@
 import 'package:commodore/data_cache.dart';
 import 'package:commodore/model/user.dart';
+import 'package:commodore/model/utils.dart';
 import 'package:commodore/themes/color_values.dart';
 import 'package:commodore/view/other_widgets/minus_button.dart';
 import 'package:commodore/view/other_widgets/plus_button.dart';
@@ -13,9 +14,9 @@ class MoneyPage extends StatefulWidget {
 }
 
 class _MoneyPageState extends CommodoreState<MoneyPage> {
-
   final DataCache _cache = DataCache.getInstance();
   late User _player;
+  int tempAmount = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -26,80 +27,131 @@ class _MoneyPageState extends CommodoreState<MoneyPage> {
         centerTitle: true,
       ),
       body: Column(
-        children: <Widget> [
-          const SizedBox(height:25),
-
+        children: <Widget>[
+          const SizedBox(height: 25),
           Center(
-            child: Text(
-                "CASH: \$" + _player.cashToString(),
+            child: Text("CASH: \$" + _player.cashToString(),
                 style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 35,
-                )
-            ),
+                )),
           ),
-
-          const SizedBox(height: 25,),
-
+          const SizedBox(
+            height: 25,
+          ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget> [
+              children: <Widget>[
                 _displayBox("\$10K"),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                  child: MinusButton(callback: () => {_player.subtractCash(10000)}),
+                  child: MinusButton(
+                      callback: () => {updateTempAmount(-10000)}),
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                  child: PlusButton(callback: () => {_player.addCash(10000)}),
+                  child: PlusButton(callback: () => {updateTempAmount(10000)}),
                 ),
               ],
             ),
           ),
-
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget> [
+              children: <Widget>[
                 _displayBox("\$50K"),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                  child: MinusButton(callback: () => {_player.subtractCash(50000)}),
+                  child: MinusButton(
+                      callback: () => {updateTempAmount(-50000)}),
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                  child: PlusButton(callback: () => {_player.addCash(50000)}),
+                  child: PlusButton(callback: () => {updateTempAmount(50000)}),
                 ),
               ],
             ),
           ),
-
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget> [
+              children: <Widget>[
                 _displayBox("\$100K"),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                  child: MinusButton(callback: () => {_player.subtractCash(100000)}),
+                  child: MinusButton(
+                      callback: () => {updateTempAmount(-100000)}),
                 ),
                 Padding(
                   padding: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                  child: PlusButton(callback: () => {_player.addCash(100000)}),
+                  child: PlusButton(callback: () => {updateTempAmount(100000)}),
                 ),
               ],
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(8,30,8,8),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[
+                Text(
+                    "\$" + Utils.cashToString(tempAmount),
+                    style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 30,
+                    )),
+                SizedBox(
+                  width: 150,
+                  height: 50,
+                  child: ElevatedButton(
+                    onPressed: () => confirm(),
+                    child: const Text(
+                      "CONFIRM",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 30,
+                      ),
+                    ),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.resolveWith<Color>(
+                            (Set<MaterialState> states) {
+                          if (states.contains(MaterialState.pressed)) {
+                            return ColorValues.addButtonColor.withOpacity(0.5);
+                          }
+                          return ColorValues.addButtonColor;
+                        },
+                      ),
+                      padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.zero),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          )
         ],
       ),
     );
   }
 
-  Widget _displayBox(String display){
+  updateTempAmount(int cash){
+    setState(() {
+      tempAmount += cash;
+    });
+  }
+
+  void confirm(){
+    _player.addCash(tempAmount);
+    setState(() {
+      tempAmount = 0;
+    });
+  }
+
+  Widget _displayBox(String display) {
     return DecoratedBox(
       decoration: _displayBoxDecoration,
       child: SizedBox(
@@ -132,5 +184,4 @@ class _MoneyPageState extends CommodoreState<MoneyPage> {
       _player = _cache.player;
     });
   }
-
 }

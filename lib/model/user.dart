@@ -1,3 +1,4 @@
+import 'package:commodore/model/utils.dart';
 import 'package:flutter/material.dart';
 
 import '../data_cache.dart';
@@ -39,13 +40,7 @@ class User{
   }
 
   String cashToString() {
-    String cashString;
-    if(cash > 1000000){
-      cashString = (cash / 1000000).toString() + "M";
-    } else {
-      cashString = (cash ~/ 1000).toString() + "K"; //toInt() allows us to remove decimal places if we still not over 1 mil
-    }
-    return cashString;
+    return Utils.cashToString(cash);
   }
 
   void addCash(int addedAmount){
