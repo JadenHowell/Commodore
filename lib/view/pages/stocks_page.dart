@@ -139,11 +139,11 @@ class _StocksPageState extends CommodoreState<StocksPage> {
                   ),
                   SizedBox(
                     height: 60,
-                    width: 60,
+                    width: 90,
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(10, 24, 0, 0),
                       child: Text(
-                        "\$" + user.stockWorth.toString(),
+                        "\$" + (user.stockWorth*10).toString() + "k",
                         style: const TextStyle(
                           fontSize: 28,
                           fontWeight: FontWeight.bold,

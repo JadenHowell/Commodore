@@ -65,10 +65,10 @@ class _WorthPageState extends CommodoreState<WorthPage> {
                   ),
                   SizedBox(
                     height: 60,
-                    width: 60,
+                    width: 100,
                     child: Center(
                       child: Text(
-                        "\$" + _allUsers[i].stockWorth.toString(),
+                        "\$" + (_allUsers[i].stockWorth * 10).toString() + "K",
                         style: const TextStyle(
                           fontSize: 28,
                           fontWeight: FontWeight.bold,
